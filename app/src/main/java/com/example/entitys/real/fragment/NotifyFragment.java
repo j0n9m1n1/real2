@@ -10,9 +10,6 @@ import android.widget.ListView;
 
 import com.example.entitys.real.R;
 import com.example.entitys.real.activity.ReportActivity;
-import com.example.entitys.real.types.Pushs;
-
-import java.util.ArrayList;
 
 
 public class NotifyFragment extends Fragment {
@@ -31,9 +28,7 @@ public class NotifyFragment extends Fragment {
         String pw = settings.getString("pw", "");
         String response = "";
 
-
-
-        System.out.println(response);
+        //System.out.println(response);
     }
 
     @Override
@@ -52,7 +47,7 @@ public class NotifyFragment extends Fragment {
 
         ListView listview = (ListView)inf.findViewById(R.id.listview);
 
-        ListAdapter adapter = new ListAdapter(getActivity(), R.layout.notify_item, ReportActivity.PushList);
+        NotifyListAdapter adapter = new NotifyListAdapter(getActivity(), R.layout.notify_item, ReportActivity.PushList);
         listview.setAdapter(adapter);
 
         return inf;

@@ -4,11 +4,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.example.entitys.real.R;
 import com.example.entitys.real.activity.ReportActivity;
@@ -16,6 +15,7 @@ import com.example.entitys.real.calendar_decorators.EventDecorator;
 import com.example.entitys.real.calendar_decorators.OneDayDecorator;
 import com.example.entitys.real.calendar_decorators.SaturdayDecorator;
 import com.example.entitys.real.calendar_decorators.SundayDecorator;
+import com.example.entitys.real.types.Pushs;
 import com.example.entitys.real.types.Subjects;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
@@ -77,40 +77,36 @@ public class CalendarFragment extends Fragment {
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                TextView title_text = (TextView)getView().findViewById(R.id.title);
-                TextView deadline_text = (TextView)getView().findViewById(R.id.deadline);
-
                 int Year = date.getYear();
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
 
                 String shot_Day = Year + "." + Month + "." + Day; // result와 같은 형식
 
-                title_text.setText("");
-                deadline_text.setText("");
+                ListView listview = (ListView)getView().findViewById(R.id.listview);
+
+                ArrayList<Pushs> Reportlist = new ArrayList<Pushs>();
+                Pushs pushs = null;
 
                 for(int i=0; i<DataList.size(); i++){
                     for(int j=0; j<DataList.get(i).reportgroup.size(); j++){
                         if(!DataList.get(i).reportgroup.get(j).reportdetail.get(3).equals("과제없음")) {
                             String[] time = DataList.get(i).reportgroup.get(j).reportdetail.get(3).split(" ");
                             if(shot_Day.equals(time[0])){
-                                title_text.append(DataList.get(i).reportgroup.get(j).reportdetail.get(0));
-                                deadline_text.append(DataList.get(i).reportgroup.get(j).reportdetail.get(3));
+                                pushs = new Pushs(DataList.get(i).reportgroup.get(j).reportdetail.get(0), DataList.get(i).reportgroup.get(j).reportdetail.get(3));
+                                Reportlist.add(pushs);
                             }
                         }
                     }
                 }
 
-                materialCalendarView.clearSelection();
-                //TextView textView = (TextView)getView().findViewById(R.id.calendarText);
-                //textView.setText(shot_Day);
+                CalendarListAdapter adapter = new CalendarListAdapter(getActivity(), R.layout.calendar_item, Reportlist);
+                listview.setAdapter(adapter);
 
-                //Toast.makeText(getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
+                materialCalendarView.clearSelection();
             }
         });
 
-
-        // Inflate the layout for this fragment
         return inf;
     }
 

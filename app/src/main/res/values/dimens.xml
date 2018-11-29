@@ -8,4 +8,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="report_title">16sp</dimen>
     <dimen name="report_item">12sp</dimen>
+    <dimen name="calendar_title">13sp</dimen>
+    <dimen name="calendar_item">10sp</dimen>
 </resources>

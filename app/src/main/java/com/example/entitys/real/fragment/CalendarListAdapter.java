@@ -12,12 +12,12 @@ import com.example.entitys.real.types.Pushs;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends BaseAdapter {
+public class CalendarListAdapter extends BaseAdapter {
     private ArrayList<Pushs> list;
     private Context context;
     private int lay;
 
-    public ListAdapter(Context context, int lay, ArrayList<Pushs> list){
+    public CalendarListAdapter(Context context, int lay, ArrayList<Pushs> list){
         this.list = list;
         this.context = context;
         this.lay = lay;
@@ -46,8 +46,8 @@ public class ListAdapter extends BaseAdapter {
             convertView = inf.inflate(this.lay, parent, false);
         }
 
-        TextView title = (TextView)convertView.findViewById(R.id.notify_title);
-        TextView item = (TextView)convertView.findViewById(R.id.notify_item);
+        TextView title = (TextView)convertView.findViewById(R.id.title);
+        TextView item = (TextView)convertView.findViewById(R.id.item);
 
         title.setText(list.get(position).getTitle());
         item.setText(list.get(position).getItem());
