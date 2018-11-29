@@ -13,11 +13,9 @@ import java.util.HashSet;
 
 public class EventDecorator implements DayViewDecorator {
 
-    //private final Drawable drawable;
     private HashSet<CalendarDay> dates;
 
     public EventDecorator(Collection<CalendarDay> dates) { //Activity context
-        //drawable = context.getResources().getDrawable(R.drawable.more);
         this.dates = new HashSet<>(dates);
     }
 
@@ -29,7 +27,6 @@ public class EventDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        //view.setSelectionDrawable(drawable);
         view.addSpan(new DotSpan(5, Color.RED)); // 날자밑에 점
     }
 }

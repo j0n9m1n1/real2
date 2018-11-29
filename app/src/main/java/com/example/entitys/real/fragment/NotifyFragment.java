@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.entitys.real.R;
-import com.example.entitys.real.http.GetRecentPush;
+import com.example.entitys.real.activity.ReportActivity;
+import com.example.entitys.real.types.Pushs;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class NotifyFragment extends Fragment {
@@ -40,19 +40,19 @@ public class NotifyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        ArrayList<Notices> data = new ArrayList<Notices>();
+        //ArrayList<Pushs> data = new ArrayList<Pushs>();
 
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                data.add(new Notices("과목"+Integer.toString(i+1), "과제"+Integer.toString(j+1)));
-            }
-        }
+        //for(int i=0; i<3; i++){
+            //for(int j=0; j<3; j++){
+                //data.add(new Pushs("과목"+Integer.toString(i+1), "과제"+Integer.toString(j+1)));
+            //}
+        //}
 
         View inf = inflater.inflate(R.layout.fragment_notify, container, false);
 
         ListView listview = (ListView)inf.findViewById(R.id.listview);
 
-        ListAdapter adapter = new ListAdapter(getActivity(), R.layout.notify_item, data);
+        ListAdapter adapter = new ListAdapter(getActivity(), R.layout.notify_item, ReportActivity.PushList);
         listview.setAdapter(adapter);
 
         return inf;

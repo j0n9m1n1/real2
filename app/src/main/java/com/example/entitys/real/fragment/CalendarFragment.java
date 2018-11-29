@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.entitys.real.R;
+import com.example.entitys.real.activity.ReportActivity;
 import com.example.entitys.real.calendar_decorators.EventDecorator;
 import com.example.entitys.real.calendar_decorators.OneDayDecorator;
 import com.example.entitys.real.calendar_decorators.SaturdayDecorator;
 import com.example.entitys.real.calendar_decorators.SundayDecorator;
+import com.example.entitys.real.types.Subjects;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -54,41 +56,54 @@ public class CalendarFragment extends Fragment {
                 new SaturdayDecorator(),
                 oneDayDecorator);
 
+        final ArrayList<Subjects> DataList = ReportActivity.DataList;
         final ArrayList<String> result = new ArrayList<String>();
-        result.add("2018,11,18");
-        result.add("2018,11,13");
-        result.add("2018,11,10");
-        result.add("2018,11,9");
-        result.add("2018,11,8");
-        result.add("0000,00,0");
+
+        for(int i=0; i<DataList.size(); i++){
+            for(int j=0; j<DataList.get(i).reportgroup.size(); j++){
+                if(!DataList.get(i).reportgroup.get(j).reportdetail.get(3).equals("과제없음")) {
+                    String[] time = DataList.get(i).reportgroup.get(j).reportdetail.get(3).split(" ");
+                    result.add(time[0]);
+                }
+            }
+        }
+
+        for(int i=0; i<result.size(); i++){
+            System.out.println("time result : "+result.get(i));
+        }
 
         new ApiSimulator(result, materialCalendarView).executeOnExecutor(Executors.newSingleThreadExecutor());
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                TextView title_text = (TextView)getView().findViewById(R.id.title);
+                TextView deadline_text = (TextView)getView().findViewById(R.id.deadline);
+
                 int Year = date.getYear();
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
 
-                //Log.i("Year test", Year + "");
-                //Log.i("Month test", Month + "");
-                //Log.i("Day test", Day + "");
+                String shot_Day = Year + "." + Month + "." + Day; // result와 같은 형식
 
-                String shot_Day = Year + "," + Month + "," + Day; // result와 같은 형식
-                for(int i=0; i<result.size(); i++) {
-                    if (shot_Day.equals(result.get(i))) {
-                        Log.i("success", shot_Day);
-                        break;
-                    } else {
-                        Log.i("fail", shot_Day);
+                title_text.setText("");
+                deadline_text.setText("");
+
+                for(int i=0; i<DataList.size(); i++){
+                    for(int j=0; j<DataList.get(i).reportgroup.size(); j++){
+                        if(!DataList.get(i).reportgroup.get(j).reportdetail.get(3).equals("과제없음")) {
+                            String[] time = DataList.get(i).reportgroup.get(j).reportdetail.get(3).split(" ");
+                            if(shot_Day.equals(time[0])){
+                                title_text.append(DataList.get(i).reportgroup.get(j).reportdetail.get(0));
+                                deadline_text.append(DataList.get(i).reportgroup.get(j).reportdetail.get(3));
+                            }
+                        }
                     }
                 }
-                //Log.i("shot_Day test", shot_Day + "");
 
                 materialCalendarView.clearSelection();
-                TextView textView = (TextView)getView().findViewById(R.id.calendarText);
-                textView.setText(shot_Day);
+                //TextView textView = (TextView)getView().findViewById(R.id.calendarText);
+                //textView.setText(shot_Day);
 
                 //Toast.makeText(getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
             }
@@ -123,18 +138,22 @@ public class CalendarFragment extends Fragment {
             /*특정날짜 달력에 점표시해주는곳*/
             /*월은 0이 1월 년,일은 그대로*/
             //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
+            //System.out.println("Timeresult : "+Time_Result2.size());
+
             for (int i = 0; i < Time_Result2.size(); i++) {
-                CalendarDay day = CalendarDay.from(calendar);
-                String[] time = Time_Result2.get(i).split(",");
+                String[] time = Time_Result2.get(i).split("\\.");
                 int year = Integer.parseInt(time[0]);
                 int month = Integer.parseInt(time[1]);
                 int dayy = Integer.parseInt(time[2]);
                 //Log.i("year", Integer.toString(year));
                 //Log.i("month", Integer.toString(month));
                 //Log.i("day", Integer.toString(dayy));
+                calendar.set(year, month - 1, dayy);
+
+                CalendarDay day = CalendarDay.from(calendar);
+                //System.out.println(day);
 
                 dates.add(day);
-                calendar.set(year, month - 1, dayy);
             }
             return dates;
         }

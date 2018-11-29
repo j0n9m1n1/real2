@@ -25,7 +25,7 @@ public class Login extends AsyncTask<String, Void, Integer> {
         int login_check = 0;
 
         try {
-            URL url = new URL("http://210.119.33.77/login");
+            URL url = new URL("http://210.119.33.99/login");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setDoOutput(true); // 아웃풋 함

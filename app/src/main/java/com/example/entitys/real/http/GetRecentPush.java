@@ -26,7 +26,7 @@ public class GetRecentPush extends AsyncTask<String, Void, String> {
         String response = "";
 
         try {
-            URL url = new URL("http://210.119.33.77/get_recent_push");
+            URL url = new URL("http://210.119.33.99/get_recent_push");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true); // 아웃풋 함
             conn.setDoInput(true); // 인풋 받음

@@ -148,11 +148,17 @@ public class ReportActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(response);
             System.out.println(jsonObject);
             PushList = new ArrayList<Pushs>();
+            //System.out.println(jsonObject.length());
 
-            for(int i=0; i<jsonObject.length()/2; i++){
-                push_temp = new Pushs(jsonObject.get("제목 "+i).toString(), jsonObject.get("내용 "+i).toString());
+            if(jsonObject.length()==0){
+                push_temp = new Pushs("최근알림없음", "최근알림없음");
                 PushList.add(push_temp);
-                System.out.println("PUSHLIST : "+PushList.get(i).title+" "+PushList.get(i).body);
+            }else{
+                for(int i=0; i<jsonObject.length()/2; i++){
+                    push_temp = new Pushs(jsonObject.get("제목 "+i).toString(), jsonObject.get("내용 "+i).toString());
+                    PushList.add(push_temp);
+                    //System.out.println("PUSHLIST : "+PushList.get(i).title+" "+PushList.get(i).item);
+                }
             }
         }catch (JSONException e){
             e.printStackTrace();

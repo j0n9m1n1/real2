@@ -8,16 +8,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.entitys.real.R;
+import com.example.entitys.real.types.Pushs;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
-    private ArrayList<Notices> list;
+    private ArrayList<Pushs> list;
     private Context context;
     private int lay;
 
-    public ListAdapter(Context context, int lay, ArrayList<Notices> list){
+    public ListAdapter(Context context, int lay, ArrayList<Pushs> list){
         this.list = list;
         this.context = context;
         this.lay = lay;
