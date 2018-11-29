@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".activity.ReportDetailActivity">
+
+    <TextView
+        android:id="@+id/report_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/report_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="how to submit"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/report_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start day"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/report_dead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="last day"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/report_late"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="how to late send"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/report_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="content"
+        android:textSize="30dp"/>
+
+</LinearLayout>
