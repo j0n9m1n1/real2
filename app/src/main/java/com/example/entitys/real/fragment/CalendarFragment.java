@@ -28,17 +28,19 @@ import java.util.concurrent.Executors;
 public class CalendarFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
-    MaterialCalendarView materialCalendarView;
-
-    public CalendarFragment() {
-        // Required empty public constructor
-    }
+    private static MaterialCalendarView materialCalendarView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        materialCalendarView = (MaterialCalendarView)getActivity().findViewById(R.id.calendarView);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View inf = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        materialCalendarView = (MaterialCalendarView)inf.findViewById(R.id.calendarView); // getActivity or getContext로 받으면 에러 inf로 받아야함
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -52,7 +54,7 @@ public class CalendarFragment extends Fragment {
                 new SaturdayDecorator(),
                 oneDayDecorator);
 
-        ArrayList<String> result = new ArrayList<String>();
+        final ArrayList<String> result = new ArrayList<String>();
         result.add("2018,11,18");
         result.add("2018,11,13");
         result.add("2018,11,10");
@@ -69,27 +71,30 @@ public class CalendarFragment extends Fragment {
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
 
-                Log.i("Year test", Year + "");
-                Log.i("Month test", Month + "");
-                Log.i("Day test", Day + "");
+                //Log.i("Year test", Year + "");
+                //Log.i("Month test", Month + "");
+                //Log.i("Day test", Day + "");
 
-                String shot_Day = Year + "," + Month + "," + Day;
-
-                Log.i("shot_Day test", shot_Day + "");
+                String shot_Day = Year + "," + Month + "," + Day; // result와 같은 형식
+                for(int i=0; i<result.size(); i++) {
+                    if (shot_Day.equals(result.get(i))) {
+                        Log.i("success", shot_Day);
+                        break;
+                    } else {
+                        Log.i("fail", shot_Day);
+                    }
+                }
+                //Log.i("shot_Day test", shot_Day + "");
 
                 materialCalendarView.clearSelection();
-                TextView textView = (TextView)getActivity().findViewById(R.id.calendarText);
+                TextView textView = (TextView)getView().findViewById(R.id.calendarText);
                 textView.setText(shot_Day);
 
                 //Toast.makeText(getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View inf = inflater.inflate(R.layout.fragment_calendar, container, false);
+
         // Inflate the layout for this fragment
         return inf;
     }
@@ -124,9 +129,9 @@ public class CalendarFragment extends Fragment {
                 int year = Integer.parseInt(time[0]);
                 int month = Integer.parseInt(time[1]);
                 int dayy = Integer.parseInt(time[2]);
-                Log.i("year", Integer.toString(year));
-                Log.i("month", Integer.toString(month));
-                Log.i("day", Integer.toString(dayy));
+                //Log.i("year", Integer.toString(year));
+                //Log.i("month", Integer.toString(month));
+                //Log.i("day", Integer.toString(dayy));
 
                 dates.add(day);
                 calendar.set(year, month - 1, dayy);

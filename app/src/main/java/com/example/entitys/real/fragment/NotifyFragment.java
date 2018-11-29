@@ -31,13 +31,7 @@ public class NotifyFragment extends Fragment {
         String pw = settings.getString("pw", "");
         String response = "";
 
-        try {
-            response = new GetRecentPush().execute(id, pw).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
 
         System.out.println(response);
     }

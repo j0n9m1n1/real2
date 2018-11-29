@@ -28,11 +28,11 @@ public class ReportDetailActivity extends AppCompatActivity {
         TextView late = (TextView)findViewById(R.id.report_late);
         TextView content = (TextView)findViewById(R.id.report_content);
 
-        title.setText  ("제목 : "+ReportFragment.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(0));
-        submit.setText ("제출방식 : "+ReportFragment.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(1));
-        post.setText   ("게시일 : "+ReportFragment.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(2));
-        daed.setText   ("마감일 : "+ReportFragment.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(3));
-        late.setText   ("지각제출 : "+ReportFragment.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(4));
-        content.setText("내용 : "+ReportFragment.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(5));
+        title.setText  ("제목 : "+ReportActivity.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(0));
+        submit.setText ("제출방식 : "+ReportActivity.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(1));
+        post.setText   ("게시일 : "+ReportActivity.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(2));
+        daed.setText   ("마감일 : "+ReportActivity.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(3));
+        late.setText   ("지각제출 : "+ReportActivity.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(4));
+        content.setText("내용 : "+ReportActivity.DataList.get(groupposition).reportgroup.get(childposition).reportdetail.get(5));
     }
 }

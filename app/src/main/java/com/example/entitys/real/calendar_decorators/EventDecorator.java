@@ -23,7 +23,7 @@ public class EventDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        Log.w("date test", day.toString());
+        //Log.w("date test", day.toString());
         return dates.contains(day);
     }
 
