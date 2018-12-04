@@ -1,7 +1,10 @@
 package com.example.entitys.real.activity;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -33,6 +36,9 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 public class ReportActivity extends AppCompatActivity {
+    public Handler han = null;
+    public ProgressDialog dialog = null;
+
     public Subjects subject_temp = null;
     public Reports report_temp = null;
     public static ArrayList<Subjects> DataList = null;
@@ -86,6 +92,25 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
+        dialog = ProgressDialog.show(this, "과제 가져오는중...", "Please wait...", true);
+        han = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                dialog.dismiss();
+                //시작화면은 report fragment
+                ft = getSupportFragmentManager().beginTransaction();
+                currentFragment = reportFragment;
+                ft.replace(R.id.content, currentFragment);
+                ft.commit();
+
+                BottomNavigationView navigation = (BottomNavigationView)
+                        findViewById(R.id.navigation); navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
+            }
+        };
+
         SharedPreferences settings = getSharedPreferences("setting", 0);
 
         final String id = settings.getString("id", "");
@@ -93,7 +118,9 @@ public class ReportActivity extends AppCompatActivity {
         DataList = new ArrayList<Subjects>();
         TimerTask tt = new TimerTask(){
             @Override
-            public void run(){
+            public void run() {
+                Message msg = han.obtainMessage();
+
                 DataList.clear();
                 try {
                     response = new GetReport().execute(id, pw).get();
@@ -113,19 +140,19 @@ public class ReportActivity extends AppCompatActivity {
                     JSONObject jsonObject3 = new JSONObject();
                     Iterator subject = jsonObject.keys();
 
-                    while(subject.hasNext()){
-                        sub_names.add((String)subject.next());
+                    while (subject.hasNext()) {
+                        sub_names.add((String) subject.next());
                     }
 
-                    for(int i = 0; i < sub_names.size(); i++) {
+                    for (int i = 0; i < sub_names.size(); i++) {
                         jsonObject2 = (JSONObject) jsonObject.get(sub_names.get(i));
                         subject_temp = new Subjects(sub_names.get(i));
 
-                        for(int j = 0; j < jsonObject2.length(); j++) {
+                        for (int j = 0; j < jsonObject2.length(); j++) {
                             jsonObject3 = (JSONObject) jsonObject2.get("과제 " + j);
                             report_temp = new Reports(jsonObject3.get("과제명").toString());
 
-                            for(int k = 0; k < jsonObject3.length(); k++){
+                            for (int k = 0; k < jsonObject3.length(); k++) {
                                 report_temp.reportdetail.add(jsonObject3.get("과제명").toString());
                                 report_temp.reportdetail.add(jsonObject3.get("제출방식").toString());
                                 report_temp.reportdetail.add(jsonObject3.get("게시일").toString());
@@ -150,46 +177,34 @@ public class ReportActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                try{
+                try {
                     JSONObject jsonObject = new JSONObject(response);
                     System.out.println(jsonObject);
                     PushList = new ArrayList<Pushs>();
                     //System.out.println(jsonObject.length());
 
-                    if(jsonObject.length()==0){
+                    if (jsonObject.length() == 0) {
                         push_temp = new Pushs("최근알림없음", "최근알림없음");
                         PushList.add(push_temp);
-                    }else{
-                        for(int i=0; i<jsonObject.length()/2; i++){
-                            push_temp = new Pushs(jsonObject.get("제목 "+i).toString(), jsonObject.get("내용 "+i).toString());
+                    } else {
+                        for (int i = 0; i < jsonObject.length() / 2; i++) {
+                            push_temp = new Pushs(jsonObject.get("제목 " + i).toString(), jsonObject.get("내용 " + i).toString());
                             PushList.add(push_temp);
                             //System.out.println("PUSHLIST : "+PushList.get(i).title+" "+PushList.get(i).item);
                         }
                     }
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                han.sendMessage(msg);
             }
-
         };
         Timer timer = new Timer();
 //        timer.schedule(tt, 0, 3000); // ms
         timer.schedule(tt, 0, 60 * 60 * 1000); // ms
 
 
-
-        //시작화면은 report fragment
-        ft = getSupportFragmentManager().beginTransaction();
-        currentFragment = reportFragment;
-        ft.replace(R.id.content, currentFragment);
-        ft.commit();
-
-        BottomNavigationView navigation = (BottomNavigationView)
-                findViewById(R.id.navigation); navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         backPressCloseHandler = new BackPressCloseHandler(this);
-        FirebaseApp.initializeApp(this);
     }
 
     @Override

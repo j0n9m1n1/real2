@@ -1,5 +1,6 @@
 package com.example.entitys.real.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
+    //ProgressDialog dialog = null;
+
     SharedPreferences setting;
     SharedPreferences.Editor editor;
 
@@ -55,7 +58,10 @@ public class LoginActivity extends AppCompatActivity {
 
         int login_check = 0;
 
+
+
             try {
+                //dialog = ProgressDialog.show(getApplicationContext(), "로그인중...", "Please wait...", true);
                 login_check = new Login().execute(id, pw, token).get();
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -80,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
                 startActivity(intent);
+                //dialog.dismiss();
                 finish();
             }
             }
