@@ -81,7 +81,20 @@ public class CalendarFragment extends Fragment {
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
 
-                String shot_Day = Year + "." + Month + "." + Day; // result와 같은 형식
+                String shot_Day;
+                if(Month<10){
+                    if (Day<10){
+                        shot_Day = Year + ".0" + Month + ".0" + Day; // result와 같은 형식
+                    }else {
+                        shot_Day = Year + ".0" + Month + "." + Day; // result와 같은 형식
+                    }
+                }else{
+                    if (Day<10){
+                        shot_Day = Year + "." + Month + ".0" + Day; // result와 같은 형식
+                    }else {
+                        shot_Day = Year + "." + Month + "." + Day; // result와 같은 형식
+                    }
+                }
 
                 ListView listview = (ListView)getView().findViewById(R.id.listview);
 
@@ -92,6 +105,8 @@ public class CalendarFragment extends Fragment {
                     for(int j=0; j<DataList.get(i).reportgroup.size(); j++){
                         if(!DataList.get(i).reportgroup.get(j).reportdetail.get(3).equals("과제없음")) {
                             String[] time = DataList.get(i).reportgroup.get(j).reportdetail.get(3).split(" ");
+                            //System.out.println("push : "+time[0]);
+                            //System.out.println("shot_day : "+shot_Day);
                             if(shot_Day.equals(time[0])){
                                 pushs = new Pushs(DataList.get(i).reportgroup.get(j).reportdetail.get(0), DataList.get(i).reportgroup.get(j).reportdetail.get(3));
                                 Reportlist.add(pushs);
