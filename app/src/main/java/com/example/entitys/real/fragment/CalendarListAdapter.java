@@ -46,11 +46,13 @@ public class CalendarListAdapter extends BaseAdapter {
             convertView = inf.inflate(this.lay, parent, false);
         }
 
-        TextView title = (TextView)convertView.findViewById(R.id.title);
+        TextView subject_title = (TextView)convertView.findViewById(R.id.subject_title);
+        TextView report_title = (TextView)convertView.findViewById(R.id.report_title);
         TextView item = (TextView)convertView.findViewById(R.id.item);
 
-        title.setText(list.get(position).getTitle());
-        item.setText(list.get(position).getItem());
+        subject_title.setText(list.get(position).getSubject_title());
+        report_title.setText(list.get(position).getReport_title());
+        item.setText("마감일 : "+list.get(position).getItem());
 
         return convertView;
     }

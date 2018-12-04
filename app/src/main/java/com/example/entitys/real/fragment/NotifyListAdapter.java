@@ -49,7 +49,7 @@ public class NotifyListAdapter extends BaseAdapter {
         TextView title = (TextView)convertView.findViewById(R.id.notify_title);
         TextView item = (TextView)convertView.findViewById(R.id.notify_item);
 
-        title.setText(list.get(position).getTitle());
+        title.setText(list.get(position).getReport_title());
         item.setText(list.get(position).getItem());
 
         return convertView;

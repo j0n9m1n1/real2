@@ -1,5 +1,6 @@
 package com.example.entitys.real.fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,10 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.entitys.real.R;
 import com.example.entitys.real.activity.ReportActivity;
+import com.example.entitys.real.activity.ReportDetailActivity;
 import com.example.entitys.real.calendar_decorators.EventDecorator;
 import com.example.entitys.real.calendar_decorators.OneDayDecorator;
 import com.example.entitys.real.calendar_decorators.SaturdayDecorator;
@@ -108,7 +111,8 @@ public class CalendarFragment extends Fragment {
                             //System.out.println("push : "+time[0]);
                             //System.out.println("shot_day : "+shot_Day);
                             if(shot_Day.equals(time[0])){
-                                pushs = new Pushs(DataList.get(i).reportgroup.get(j).reportdetail.get(0), DataList.get(i).reportgroup.get(j).reportdetail.get(3));
+                                pushs = new Pushs(DataList.get(i).subjectname,
+                                        DataList.get(i).reportgroup.get(j).reportdetail.get(0), DataList.get(i).reportgroup.get(j).reportdetail.get(3));
                                 Reportlist.add(pushs);
                             }
                         }
@@ -121,6 +125,7 @@ public class CalendarFragment extends Fragment {
                 materialCalendarView.clearSelection();
             }
         });
+
 
         return inf;
     }
