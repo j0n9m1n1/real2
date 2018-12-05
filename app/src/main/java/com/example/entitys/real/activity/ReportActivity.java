@@ -1,6 +1,7 @@
 package com.example.entitys.real.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import com.example.entitys.real.fragment.NotifyFragment;
 import com.example.entitys.real.fragment.ReportFragment;
 import com.example.entitys.real.http.GetRecentPush;
 import com.example.entitys.real.http.GetReport;
+import com.example.entitys.real.service.BgService;
 import com.example.entitys.real.types.Pushs;
 import com.example.entitys.real.types.Reports;
 import com.example.entitys.real.types.Subjects;
@@ -92,6 +94,8 @@ public class ReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
+
+
         dialog = ProgressDialog.show(this, "과제 가져오는중...", "Please wait...", true);
         han = new Handler(){
             @Override
@@ -116,6 +120,12 @@ public class ReportActivity extends AppCompatActivity {
         final String id = settings.getString("id", "");
         final String pw = settings.getString("pw", "");
         DataList = new ArrayList<Subjects>();
+
+        Intent intent = new Intent(this, BgService.class); // 이동할 컴포넌트
+        intent.putExtra("id", id);
+        intent.putExtra("pw", pw);
+        startService(intent); // 서비스 시작
+
         TimerTask tt = new TimerTask(){
             @Override
             public void run() {

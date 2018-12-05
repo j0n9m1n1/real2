@@ -31,7 +31,8 @@ public class GetReport extends AsyncTask<String, Void, String> {
         String response = "";
 
         try {
-            URL url = new URL("http://210.119.33.77/get_report");
+            URL url = new URL("http://ec2-52-78-239-241.ap-northeast-2.compute.amazonaws.com:7121/get_report");
+//            URL url = new URL("http://123.214.121.100/get_report");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true); // 아웃풋 함
             conn.setDoInput(true); // 인풋 받음

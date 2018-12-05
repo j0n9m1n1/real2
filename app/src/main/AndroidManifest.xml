@@ -28,6 +28,7 @@
             android:name=".activity.ReportActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.ReportDetailActivity"></activity>
+        <service android:name=".service.BgService"></service>
     </application>
 
 </manifest>
