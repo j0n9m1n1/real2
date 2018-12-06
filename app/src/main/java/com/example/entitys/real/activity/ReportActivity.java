@@ -38,6 +38,8 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 public class ReportActivity extends AppCompatActivity {
+    private Thread thread=null;
+
     public Handler han = null;
     public ProgressDialog dialog = null;
 
@@ -119,14 +121,16 @@ public class ReportActivity extends AppCompatActivity {
 
         final String id = settings.getString("id", "");
         final String pw = settings.getString("pw", "");
+
         DataList = new ArrayList<Subjects>();
 
         Intent intent = new Intent(this, BgService.class); // 이동할 컴포넌트
-        intent.putExtra("id", id);
-        intent.putExtra("pw", pw);
         startService(intent); // 서비스 시작
 
-        TimerTask tt = new TimerTask(){
+//        TextView textView = (TextView)findViewById(R.id.nav_title);
+//        textView.setText("ID : "+id);
+
+        thread = new Thread(){
             @Override
             public void run() {
                 Message msg = han.obtainMessage();
@@ -209,10 +213,7 @@ public class ReportActivity extends AppCompatActivity {
                 han.sendMessage(msg);
             }
         };
-        Timer timer = new Timer();
-//        timer.schedule(tt, 0, 3000); // ms
-        timer.schedule(tt, 0, 60 * 60 * 1000); // ms
-
+        thread.start();
 
         backPressCloseHandler = new BackPressCloseHandler(this);
     }

@@ -58,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
 
         int login_check = 0;
 
-
-
             try {
                 //dialog = ProgressDialog.show(getApplicationContext(), "로그인중...", "Please wait...", true);
                 login_check = new Login().execute(id, pw, token).get();

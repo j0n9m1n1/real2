@@ -71,10 +71,6 @@ public class CalendarFragment extends Fragment {
             }
         }
 
-        for(int i=0; i<result.size(); i++){
-            System.out.println("time result : "+result.get(i));
-        }
-
         new ApiSimulator(result, materialCalendarView).executeOnExecutor(Executors.newSingleThreadExecutor());
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -101,15 +97,14 @@ public class CalendarFragment extends Fragment {
 
                 ListView listview = (ListView)getView().findViewById(R.id.listview);
 
-                ArrayList<Pushs> Reportlist = new ArrayList<Pushs>();
+                final ArrayList<Pushs> Reportlist = new ArrayList<Pushs>();
                 Pushs pushs = null;
 
                 for(int i=0; i<DataList.size(); i++){
                     for(int j=0; j<DataList.get(i).reportgroup.size(); j++){
                         if(!DataList.get(i).reportgroup.get(j).reportdetail.get(3).equals("과제없음")) {
                             String[] time = DataList.get(i).reportgroup.get(j).reportdetail.get(3).split(" ");
-                            //System.out.println("push : "+time[0]);
-                            //System.out.println("shot_day : "+shot_Day);
+
                             if(shot_Day.equals(time[0])){
                                 pushs = new Pushs(DataList.get(i).subjectname,
                                         DataList.get(i).reportgroup.get(j).reportdetail.get(0), DataList.get(i).reportgroup.get(j).reportdetail.get(3));
@@ -121,6 +116,36 @@ public class CalendarFragment extends Fragment {
 
                 CalendarListAdapter adapter = new CalendarListAdapter(getActivity(), R.layout.calendar_item, Reportlist);
                 listview.setAdapter(adapter);
+
+
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    //TODO calendar listview click event
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        int groupposition = 0;
+                        int childposition = 0;
+
+                        for(int i=0; i<DataList.size(); i++){
+                            if(Reportlist.get(position).subject_title.equals(DataList.get(i).subjectname)){
+                                groupposition = i;
+                            }
+                            for(int j=0; j<DataList.get(i).reportgroup.size(); j++){
+                                if(Reportlist.get(position).report_title.equals(DataList.get(i).reportgroup.get(j).reportname)){
+                                    childposition = j;
+                                    break;
+                                }
+                            }
+                            if(childposition != 0){
+                                break;
+                            }
+                        }
+
+                        Intent intent = new Intent(getActivity(), ReportDetailActivity.class);
+                        intent.putExtra("groupPosition", groupposition);
+                        intent.putExtra("childPosition", childposition);
+                        startActivity(intent);
+                    }
+                });
 
                 materialCalendarView.clearSelection();
             }
@@ -154,20 +179,16 @@ public class CalendarFragment extends Fragment {
             /*특정날짜 달력에 점표시해주는곳*/
             /*월은 0이 1월 년,일은 그대로*/
             //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
-            //System.out.println("Timeresult : "+Time_Result2.size());
 
             for (int i = 0; i < Time_Result2.size(); i++) {
                 String[] time = Time_Result2.get(i).split("\\.");
                 int year = Integer.parseInt(time[0]);
                 int month = Integer.parseInt(time[1]);
                 int dayy = Integer.parseInt(time[2]);
-                //Log.i("year", Integer.toString(year));
-                //Log.i("month", Integer.toString(month));
-                //Log.i("day", Integer.toString(dayy));
+
                 calendar.set(year, month - 1, dayy);
 
                 CalendarDay day = CalendarDay.from(calendar);
-                //System.out.println(day);
 
                 dates.add(day);
             }

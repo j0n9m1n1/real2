@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.entitys.real.R;
-import com.example.entitys.real.fragment.ReportFragment;
 
 public class ReportDetailActivity extends AppCompatActivity {
 

@@ -28,7 +28,11 @@
             android:name=".activity.ReportActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.ReportDetailActivity"></activity>
-        <service android:name=".service.BgService"></service>
+        <service android:name=".service.BgService"
+            android:stopWithTask="true"
+            android:enabled="true"
+            android:exported="false"></service>
+
     </application>
 
 </manifest>
