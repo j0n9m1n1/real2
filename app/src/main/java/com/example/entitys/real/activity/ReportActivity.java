@@ -1,6 +1,7 @@
 package com.example.entitys.real.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,11 +22,20 @@ import com.example.entitys.real.fragment.NotifyFragment;
 import com.example.entitys.real.fragment.ReportFragment;
 import com.example.entitys.real.http.GetRecentPush;
 import com.example.entitys.real.http.GetReport;
-import com.example.entitys.real.service.BgService;
+//import com.example.entitys.real.service.BgService;
+import com.example.entitys.real.service.GetReportService;
 import com.example.entitys.real.types.Pushs;
 import com.example.entitys.real.types.Reports;
 import com.example.entitys.real.types.Subjects;
 import com.example.entitys.real.util.BackPressCloseHandler;
+import com.example.entitys.real.util.JobDispatcherUtils;
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.firebase.FirebaseApp;
 
 import org.json.JSONException;
@@ -70,7 +80,9 @@ public class ReportActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_report://report 선택 시
                     currentFragment = reportFragment;//report fragment 삽입
+
                     switchFragment(currentFragment);
+
                     return true;
                 case R.id.navigation_calendar://calendar 선택 시
                     currentFragment = calendarFragment;//calendar fragment 삽입
@@ -123,12 +135,6 @@ public class ReportActivity extends AppCompatActivity {
         final String pw = settings.getString("pw", "");
 
         DataList = new ArrayList<Subjects>();
-
-        Intent intent = new Intent(this, BgService.class); // 이동할 컴포넌트
-        startService(intent); // 서비스 시작
-
-//        TextView textView = (TextView)findViewById(R.id.nav_title);
-//        textView.setText("ID : "+id);
 
         thread = new Thread(){
             @Override
@@ -215,14 +221,47 @@ public class ReportActivity extends AppCompatActivity {
         };
         thread.start();
 
+        scheduleJob(this);
+
         backPressCloseHandler = new BackPressCloseHandler(this);
     }
 
+    public static void scheduleJob(Context context) {
+        //creating new firebase job dispatcher
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
+        //creating new job and adding it with dispatcher
+        dispatcher.cancelAll();
+        Job job = createJob(dispatcher);
+        dispatcher.mustSchedule(job);
+    }
+
+    public static Job createJob(FirebaseJobDispatcher dispatcher){
+
+        Job job = dispatcher.newJobBuilder()
+                .setLifetime(Lifetime.FOREVER)
+                .setService(GetReportService.class)
+                //unique id of the task
+                .setTag("GetReportService")
+                .setReplaceCurrent(false)
+                .setRecurring(true)
+                // Run between 30 - 60 seconds from now.
+                .setTrigger(JobDispatcherUtils.periodicTrigger(600, 10))
+                // retry with exponential backoff
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                //.setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                //Run this job only when the network is available.
+                .setConstraints(Constraint.ON_ANY_NETWORK, Constraint.DEVICE_CHARGING)
+                .build();
+        return job;
+    }
     @Override
     public void onBackPressed() {
 //         super.onBackPressed();
          backPressCloseHandler.onBackPressed();
     }
 
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 
 }

@@ -3,7 +3,7 @@
     package="com.example.entitys.real">
 
     <permission android:name="android.permission.INTERNET" />
-
+    <permission android:name="android.permission.BIND_JOB_SERVICE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -28,10 +28,14 @@
             android:name=".activity.ReportActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.ReportDetailActivity"></activity>
-        <service android:name=".service.BgService"
-            android:stopWithTask="true"
-            android:enabled="true"
-            android:exported="false"></service>
+        <service
+            android:name=".service.GetReportService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
 
     </application>
 

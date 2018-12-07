@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">real</string>
+    <string name="app_name">e강의동 알림</string>
     <string name="title_activity_report">ReportActivity</string>
     <string name="title_report">과제</string>
     <string name="title_calendar">일정</string>
