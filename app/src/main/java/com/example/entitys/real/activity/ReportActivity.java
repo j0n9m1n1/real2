@@ -245,7 +245,7 @@ public class ReportActivity extends AppCompatActivity {
                 .setReplaceCurrent(false)
                 .setRecurring(true)
                 // Run between 30 - 60 seconds from now.
-                .setTrigger(JobDispatcherUtils.periodicTrigger(600, 10))
+                .setTrigger(JobDispatcherUtils.periodicTrigger(36000, 10))
                 // retry with exponential backoff
                 .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
                 //.setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)

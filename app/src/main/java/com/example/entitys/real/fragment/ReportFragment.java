@@ -50,12 +50,13 @@ public class ReportFragment extends Fragment {
     public static ArrayList<Pushs> PushList = null;
     public Pushs push_temp = null;
     FragmentTransaction ft;
-
-
+    Fragment currentFragment = null;
+    Fragment reportFragment =  this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        ft = getFragmentManager().beginTransaction();
 //        SharedPreferences settings = this.getActivity().getSharedPreferences("setting", 0);
     }
 
@@ -180,25 +181,12 @@ public class ReportFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+//        currentFragment  = reportFragment;
+//        ft = getFragmentManager().beginTransaction();
+//        ft.replace(R.id.content, currentFragment);//id가 content인 곳에 fragment 보여줌
+//        ft.commit();//실행
 
-        /*
-        switch (item.getItemId()) {
-        case R.id.action_settings:
-            // User chose the "Settings" item, show the app settings UI...
-            return true;
 
-        case R.id.action_favorite:
-            // User chose the "Favorite" action, mark the current item
-            // as a favorite...
-            return true;
-
-        default:
-            // If we got here, the user's action was not recognized.
-            // Invoke the superclass to handle it.
-            return super.onOptionsItemSelected(item);
-
-    }
-         */
     }
 
     @Override

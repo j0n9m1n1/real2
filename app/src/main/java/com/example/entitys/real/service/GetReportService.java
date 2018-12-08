@@ -25,7 +25,7 @@ public class GetReportService extends JobService {
             }
         }).start();
 
-        return false;
+        return true;
     }
 
     @Override
