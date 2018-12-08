@@ -17,7 +17,7 @@ public class GetReportService extends JobService {
 
     @Override
     public boolean onStartJob(final JobParameters params) {
-        //Offloading work to a new thread.
+
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -15,10 +15,7 @@ import java.net.URL;
 
 public class GetRecentPush extends AsyncTask<String, Void, String> {
 
-    @Override protected void onPreExecute() {
-        super.onPreExecute();
-
-    }
+    @Override protected void onPreExecute() {super.onPreExecute();}
 
     @Override
     protected String doInBackground(String... user_info) {
@@ -27,7 +24,6 @@ public class GetRecentPush extends AsyncTask<String, Void, String> {
 
         try {
             URL url = new URL("http://ec2-52-78-239-241.ap-northeast-2.compute.amazonaws.com:7121/get_recent_push");
-//            URL url = new URL("http://123.214.121.100/get_recent_push");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setDoOutput(true); // 아웃풋 함
@@ -37,7 +33,6 @@ public class GetRecentPush extends AsyncTask<String, Void, String> {
 
             Uri.Builder builder = new Uri.Builder()
                     .appendQueryParameter("lms_id", user_info[0]);
-
 
             String query = builder.build().getEncodedQuery();
             OutputStream os = conn.getOutputStream();
@@ -73,13 +68,5 @@ public class GetRecentPush extends AsyncTask<String, Void, String> {
         }
 
         return response;
-    }
-
-    protected void onProgressUpdate(Integer... progress) {
-        // 로딩 퍼센트?
-    }
-
-    protected void onPostExcuted(){
-        // doinbackground에서 끝나면 서버에서 json 받아오기
     }
 }

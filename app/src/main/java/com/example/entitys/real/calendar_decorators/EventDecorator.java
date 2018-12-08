@@ -1,8 +1,6 @@
 package com.example.entitys.real.calendar_decorators;
 
 import android.graphics.Color;
-import android.util.Log;
-
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -20,13 +18,10 @@ public class EventDecorator implements DayViewDecorator {
     }
 
     @Override
-    public boolean shouldDecorate(CalendarDay day) {
-        //Log.w("date test", day.toString());
-        return dates.contains(day);
-    }
+    public boolean shouldDecorate(CalendarDay day) {return dates.contains(day);}
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(5, Color.RED)); // 날자밑에 점
+        view.addSpan(new DotSpan(5, Color.RED));
     }
 }

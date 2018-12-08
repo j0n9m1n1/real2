@@ -14,10 +14,7 @@ import java.net.URL;
 
 public class Login extends AsyncTask<String, Void, Integer> {
 
-    @Override protected void onPreExecute() {
-        super.onPreExecute();
-
-    }
+    @Override protected void onPreExecute() { super.onPreExecute();}
 
     @Override
     protected Integer doInBackground(String... user_info) {
@@ -26,13 +23,11 @@ public class Login extends AsyncTask<String, Void, Integer> {
 
         try {
             URL url = new URL("http://ec2-52-78-239-241.ap-northeast-2.compute.amazonaws.com:7121/login");
-//            URL url = new URL("http://123.214.121.100/login");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             conn.setDoOutput(true); // 아웃풋 함
             conn.setDoInput(true); // 인풋 받음
             conn.setRequestMethod("POST"); // 요청 타입 POST
-//            conn.setRequestProperty("Accept", "application/json"); // 응답 타입 jSON
             conn.setRequestProperty("Accept", "charset=utf-8"); // 응답 타입 jSON
             Uri.Builder builder = new Uri.Builder()
                     .appendQueryParameter("lms_id", user_info[0])
@@ -47,9 +42,6 @@ public class Login extends AsyncTask<String, Void, Integer> {
             writer.flush();
             writer.close();
 
-
-
-//            System.out.println("in doInBackgorund: " + sb);
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 //reponse 200일때
                 String reply;
@@ -79,13 +71,5 @@ public class Login extends AsyncTask<String, Void, Integer> {
         }
 
         return login_check;
-    }
-
-    protected void onProgressUpdate(Integer... progress) {
-        // 로딩 퍼센트?
-    }
-
-    protected void onPostExcuted(){
-        // doinbackground에서 끝나면 서버에서 json 받아오기
     }
 }

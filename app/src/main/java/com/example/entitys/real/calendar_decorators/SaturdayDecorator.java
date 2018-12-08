@@ -2,7 +2,6 @@ package com.example.entitys.real.calendar_decorators;
 
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;
-
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -13,9 +12,7 @@ public class SaturdayDecorator implements DayViewDecorator {
 
     private final Calendar calendar = Calendar.getInstance();
 
-    public SaturdayDecorator(){
-
-    }
+    public SaturdayDecorator(){}
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,9 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
-
 import com.example.entitys.real.R;
 import com.example.entitys.real.activity.HelpActivtiy;
 import com.example.entitys.real.activity.LoginActivity;
@@ -29,8 +26,6 @@ import com.example.entitys.real.calendar_decorators.EventDecorator;
 import com.example.entitys.real.calendar_decorators.OneDayDecorator;
 import com.example.entitys.real.calendar_decorators.SaturdayDecorator;
 import com.example.entitys.real.calendar_decorators.SundayDecorator;
-import com.example.entitys.real.http.GetRecentPush;
-import com.example.entitys.real.http.GetReport;
 import com.example.entitys.real.types.Pushs;
 import com.example.entitys.real.types.Reports;
 import com.example.entitys.real.types.Subjects;
@@ -38,33 +33,15 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
 public class CalendarFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     private static MaterialCalendarView materialCalendarView;
-
-
-    Handler han = null;
-    public ProgressDialog dialog = null;
-    private Thread thread=null;
-    public Subjects subject_temp = null;
-    public Reports report_temp = null;
-    public static ArrayList<Subjects> DataList = null;
-    private String response = null;
-    public static ArrayList<Pushs> PushList = null;
-    public Pushs push_temp = null;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,11 +51,12 @@ public class CalendarFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.actionbar_actions, menu);  // Use filter.xml from step 1
+        inflater.inflate(R.menu.actionbar_actions, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         SharedPreferences settings = this.getActivity().getSharedPreferences("setting", 0);
         final String id = settings.getString("id", "");
         final String pw = settings.getString("pw", "");
@@ -90,6 +68,7 @@ public class CalendarFragment extends Fragment {
             startActivity(in);
             return true;
         }
+
         if(cid == R.id.logout){
 
             Log.d("clicked", "logout");
@@ -97,9 +76,10 @@ public class CalendarFragment extends Fragment {
             startActivity(in);
             return true;
         }
+
         if(cid == R.id.help){
+
             Intent intent = new Intent(getActivity(), HelpActivtiy.class);
-//            Intent in = new Intent(getContext(), HelpActivtiy.class);
             startActivity(intent);
             Log.d("clicked", "help");
             return true;
@@ -110,13 +90,12 @@ public class CalendarFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         getActivity().setTitle("일정");
         View inf = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        materialCalendarView = (MaterialCalendarView)inf.findViewById(R.id.calendarView); // getActivity or getContext로 받으면 에러 inf로 받아야함
+        materialCalendarView = (MaterialCalendarView)inf.findViewById(R.id.calendarView);
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -150,8 +129,8 @@ public class CalendarFragment extends Fragment {
                 int Year = date.getYear();
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
-
                 String shot_Day;
+
                 if(Month<10){
                     if (Day<10){
                         shot_Day = Year + ".0" + Month + ".0" + Day; // result와 같은 형식
@@ -258,9 +237,7 @@ public class CalendarFragment extends Fragment {
                 int dayy = Integer.parseInt(time[2]);
 
                 calendar.set(year, month - 1, dayy);
-
                 CalendarDay day = CalendarDay.from(calendar);
-
                 dates.add(day);
             }
             return dates;

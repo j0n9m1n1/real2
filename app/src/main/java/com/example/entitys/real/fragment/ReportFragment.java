@@ -37,49 +37,32 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 public class ReportFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    Handler han = null;
-    public ProgressDialog dialog = null;
+
     private ExpandableListView listView;
-    SharedPreferences settings = null;
-    private Thread thread=null;
 
-    public Subjects subject_temp = null;
-    public Reports report_temp = null;
-    public static ArrayList<Subjects> DataList = null;
-    private String response = null;
-
-    public static ArrayList<Pushs> PushList = null;
-    public Pushs push_temp = null;
-    FragmentTransaction ft;
-    Fragment currentFragment = null;
-    Fragment reportFragment =  this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        ft = getFragmentManager().beginTransaction();
-//        SharedPreferences settings = this.getActivity().getSharedPreferences("setting", 0);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.actionbar_actions, menu);  // Use filter.xml from step 1
+        inflater.inflate(R.menu.actionbar_actions, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences settings = this.getActivity().getSharedPreferences("setting", 0);
-        final String id = settings.getString("id", "");
-        final String pw = settings.getString("pw", "");
 
         int cid = item.getItemId();
+
         if(cid == R.id.refresh){
 
             Intent in = new Intent(getContext(), ReportActivity.class);
             startActivity(in);
             return true;
         }
+
         if(cid == R.id.logout){
 
             Log.d("clicked", "logout");
@@ -87,15 +70,16 @@ public class ReportFragment extends Fragment {
             startActivity(in);
             return true;
         }
+
         if(cid == R.id.help){
+
             Intent intent = new Intent(getActivity(), HelpActivtiy.class);
-//            Intent in = new Intent(getContext(), HelpActivtiy.class);
             startActivity(intent);
             Log.d("clicked", "help");
             return true;
         }
-        return super.onOptionsItemSelected(item);
 
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -118,12 +102,10 @@ public class ReportFragment extends Fragment {
                 intent.putExtra("groupPosition", groupPosition);
                 intent.putExtra("childPosition", childPosition);
                 startActivity(intent);
-                //Toast.makeText(getContext(), "child = "+DataList.get(groupPosition).child.get(childPosition), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
 
-//        setHasOptionsMenu(true);
         return inf;
     }
 }

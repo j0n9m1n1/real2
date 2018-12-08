@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.example.entitys.real.R;
 import com.example.entitys.real.types.Pushs;
-
 import java.util.ArrayList;
 
 public class NotifyListAdapter extends BaseAdapter {
