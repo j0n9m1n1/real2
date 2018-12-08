@@ -8,48 +8,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".activity.ReportDetailActivity">
+    tools:context=".activity.HelpActivtiy">
 
     <TextView
-        android:id="@+id/report_title"
+        android:id="@+id/report"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="title"
-        android:textSize="30dp"/>
-
-    <TextView
-        android:id="@+id/report_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="submit"
+        android:text="과제는 각 과목 최근 과제 10개를 가져옵니다."
         android:textSize="15dp"/>
 
     <TextView
-        android:id="@+id/report_post"
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="post"
+        android:text="캘린더는 최근 10과목의 제출 기한이 표시 됩니다."
         android:textSize="15dp"/>
 
     <TextView
-        android:id="@+id/report_dead"
+        android:id="@+id/push"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="dead"
+        android:text="알림은 최근 왔던 알림의 10개를 가져옵니다."
         android:textSize="15dp"/>
 
+
     <TextView
-        android:id="@+id/report_late"
+        android:id="@+id/makers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="late"
+        android:text=""
+        android:textSize="25dp"/>
+
+    <TextView
+        android:id="@+id/makers_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="선문대학교 컴퓨터공학과 14학번
+        이종민(j0n9m1n1@gmail.com), 조유상(dbtkddlapdlf@gmail.com)"
         android:textSize="15dp"/>
-
-    <TextView
-        android:id="@+id/report_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="content"
-        android:textSize="30dp"/>
-
 </LinearLayout>

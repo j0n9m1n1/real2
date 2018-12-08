@@ -16,15 +16,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/splash_main_logo" />
 
     <EditText
         android:id="@+id/editTextID"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="11dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="9dp"
         android:ems="10"
         android:hint="ID"
         android:inputType="textPersonName"
@@ -52,10 +52,14 @@
         android:id="@+id/buttonLogin"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="206dp"
-        android:layout_marginEnd="14dp"
         android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="206dp"
+
+        android:shadowColor="@color/common_google_signin_btn_text_dark_disabled"
         android:text="LOGIN"
+        android:textIsSelectable="false"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

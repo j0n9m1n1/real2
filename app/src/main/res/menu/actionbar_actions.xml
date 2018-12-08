@@ -6,13 +6,18 @@
 
     <item
         android:id="@+id/refresh"
-        android:title="TEST"
+        android:title="refresh"
         android:orderInCategory="10"
         android:icon="@drawable/ic_refresh"
         app:showAsAction="ifRoom" />
 
     <!-- Settings, should always be in the overflow -->
-    <!--<item android:id="@+id/action_settings"-->
-        <!--android:title="TEST"-->
-        <!--app:showAsAction="never"/>-->
+    <item android:id="@+id/logout"
+        android:title="로그아웃"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/help"
+        android:title="도움말"
+        app:showAsAction="never"/>
+
 </menu>

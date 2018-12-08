@@ -78,14 +78,14 @@ public class ReportActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_report://report 선택 시
-                    currentFragment = reportFragment;//report fragment 삽입
+                case R.id.navigation_report://ic_bt_nav_report 선택 시
+                    currentFragment = reportFragment;//ic_bt_nav_report fragment 삽입
 
                     switchFragment(currentFragment);
 
                     return true;
-                case R.id.navigation_calendar://calendar 선택 시
-                    currentFragment = calendarFragment;//calendar fragment 삽입
+                case R.id.navigation_calendar://ic_bt_nav_calendar 선택 시
+                    currentFragment = calendarFragment;//ic_bt_nav_calendar fragment 삽입
                     switchFragment(currentFragment);
                     return true;
                 case R.id.navigation_notifications://notifications 선택 시
@@ -116,7 +116,7 @@ public class ReportActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 dialog.dismiss();
-                //시작화면은 report fragment
+                //시작화면은 ic_bt_nav_report fragment
                 ft = getSupportFragmentManager().beginTransaction();
                 currentFragment = reportFragment;
                 ft.replace(R.id.content, currentFragment);
@@ -245,7 +245,7 @@ public class ReportActivity extends AppCompatActivity {
                 .setReplaceCurrent(false)
                 .setRecurring(true)
                 // Run between 30 - 60 seconds from now.
-                .setTrigger(JobDispatcherUtils.periodicTrigger(36000, 10))
+                .setTrigger(JobDispatcherUtils.periodicTrigger(36, 10))
                 // retry with exponential backoff
                 .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
                 //.setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)

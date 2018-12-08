@@ -21,14 +21,14 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
     private ArrayList<Subjects> DataList;
     private LayoutInflater myinf = null;
 
-    public ExpandAdapter(Context context, int groupLay, int chlidLay, ArrayList<Subjects> DataList){
+    public ExpandAdapter(Context context, int groupLay, int chlidLay, ArrayList<Subjects> DataList) {
         this.DataList = DataList;
         this.groupLayout = groupLay;
         this.chlidLayout = chlidLay;
         this.context = context;
-        this.myinf = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
+        this.myinf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+    }
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub

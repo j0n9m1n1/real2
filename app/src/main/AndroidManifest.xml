@@ -3,12 +3,11 @@
     package="com.example.entitys.real">
 
     <permission android:name="android.permission.INTERNET" />
-    <permission android:name="android.permission.BIND_JOB_SERVICE"/>
+    <permission android:name="android.permission.BIND_JOB_SERVICE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.ReportActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.ReportDetailActivity"></activity>
+        <activity android:name=".activity.ReportDetailActivity" />
+
         <service
             android:name=".service.GetReportService"
             android:exported="false">
@@ -42,9 +41,12 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
+
+        <activity android:name=".activity.HelpActivtiy"></activity>
     </application>
 
 </manifest>

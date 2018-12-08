@@ -13,7 +13,7 @@ public class ReportDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_detail);
-
+        this.setTitle("과제 내용");
         Intent intent = getIntent();
 
         //ArrayList<Subjects> DataList = (ArrayList<Subjects>)intent.getSerializableExtra("DataList");
