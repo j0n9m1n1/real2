@@ -31,7 +31,7 @@ public class GetReportService extends JobService {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                codeYouWantToRun(params);
+                getReport(params);
             }
         }).start();
 
@@ -43,46 +43,15 @@ public class GetReportService extends JobService {
         return false;
     }
 
-    public void codeYouWantToRun(final JobParameters parameters) {
+    public void getReport(final JobParameters parameters) {
 
         settings = getSharedPreferences("setting", 0);
 
         String id = settings.getString("id", "");
         String pw = settings.getString("pw", "");
 
-        Log.d("JOB TEST","JOB TEST");
         new GetReport().execute(id, pw);
-        String channelId = "channel";
-        String channelName = "Channel Name";
-        Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        int requestID = (int) System.currentTimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), requestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager notiManager = (NotificationManager) getSystemService  (Context.NOTIFICATION_SERVICE);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel mChannel = new NotificationChannel(channelId, channelName, importance);
-            notiManager.createNotificationChannel(mChannel);
-        }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
-        Intent notificationIntent = new Intent(getApplicationContext(), ReportActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        builder.setContentTitle("JOB TEST")
-                .setContentText("JOB TEST")
-                .setShowWhen(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setSmallIcon(android.R.drawable.btn_star)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_app_logo))
-                .setBadgeIconType(R.drawable.ic_app_logo)
-                .setContentIntent(pendingIntent);
-
-        notiManager.notify(0, builder.build());
         jobFinished(parameters, true);
 
     }
