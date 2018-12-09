@@ -221,11 +221,11 @@ public class ReportActivity extends AppCompatActivity {
                 .setLifetime(Lifetime.FOREVER)
                 .setService(GetReportService.class)
                 .setTag("GetReportService")
-                .setReplaceCurrent(false)
+                .setReplaceCurrent(true)
                 .setRecurring(true)
-                .setTrigger(JobDispatcherUtils.periodicTrigger(36, 10))
+                .setTrigger(JobDispatcherUtils.periodicTrigger(3600, 20))
                 .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
-                .setConstraints(Constraint.ON_ANY_NETWORK, Constraint.DEVICE_CHARGING)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
                 .build();
         return job;
     }
