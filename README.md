@@ -22,7 +22,7 @@ shared preference 자동로그인
 
 토큰을 쉐어드 프리퍼런스에 넣고
 로그인 할때 아이디랑 서버에 전송하고 그 두개를 디비에 저장 해놔야 다음에 보낼수 ㅇㅅ을듯
-폴더 나누기(패키지 우클릭 -> new -> package -> 소스옮기면서 refactor하면 됌한단어 소문자)
+폴더 나누기(패키지 우클릭 -> new -> package -> 소스옮기면서 refactor하면 됨한단어 소문자)
 클래스 대문자 시작
 라이센스 목록 기재
 
@@ -34,7 +34,7 @@ gson serializedname nested
 
 멀티프로세싱, 백그라운드 태스크
 
-0. onMessageRecieved 들어가게(포기)
+0. onMessageRecieved 들어가게(O)
 1. 최근 알림 목록 (o)
 2. 프래그먼트 누를때마다 get_report 요청하는거 (o)
 3. 60분 마다 get_report 요청 (되는듯)
